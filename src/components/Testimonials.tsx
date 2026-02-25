@@ -8,6 +8,7 @@ const testimonials = [
     {
         quote:
             "I am a passionate Front-End Developer with hands-on experience in building responsive, dynamic, and user-friendly web interfaces.Specialized in crafting pixel-perfect designs, optimizing performance, and delivering seamless cross-browser experiences using modern frameworks and clean, maintainable code.",
+        name: "Raj Santosh Singh",
         designation: "Front end Developer",
         src: "/sequence/images/Whisk_3ae2e86dbff997380fa4f31ac01bef6edr (1).png",
     },
