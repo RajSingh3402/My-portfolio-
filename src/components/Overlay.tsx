@@ -42,11 +42,11 @@ export default function Overlay() {
                     </p>
 
                     <p className="text-lg text-white/60">
-                        📧 rajsingh@email.com
+                        📧 SATYAMSINGH@GMAIL.COM
                     </p>
 
                     <p className="text-lg text-white/60 mt-1">
-                        📞 +91 98765 43210
+                        📞 +91 93242 73931
                     </p>
                     <div className="flex gap-4 mt-8 pointer-events-auto">
                         <a

@@ -58,7 +58,7 @@ export default function Footer() {
 
                     {/* LinkedIn */}
                     <a
-                        href="https://linkedin.com/in/rajsantoshsingh"
+                        href="https://www.linkedin.com/feed/?trk=404_page"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-blue-400 hover:border-blue-400/50 hover:bg-blue-400/10 transition-all duration-300"

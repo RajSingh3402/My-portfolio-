@@ -61,8 +61,7 @@ export default function Contact() {
                                 gradientAnimationDuration={3}
                             />
                             <p className="text-white/60 text-lg max-w-md leading-relaxed">
-                                I'm currently available for freelance projects, full-time opportunities, or just a quick chat about web development and design.
-                            </p>
+                                Interested in working together or have any questions? Feel free to contact me. I’m always open to new opportunities and collaborations.                            </p>
                         </div>
 
                         <div className="space-y-6 pt-4">
@@ -72,7 +71,7 @@ export default function Contact() {
                                 </div>
                                 <div>
                                     <p className="text-sm text-white/40 mb-1">Email</p>
-                                    <p className="text-white font-medium">rajsingh@email.com</p>
+                                    <p className="text-white font-medium">SATYAMSINGH.82844@GMAIL.COM</p>
                                 </div>
                             </div>
 
@@ -82,7 +81,7 @@ export default function Contact() {
                                 </div>
                                 <div>
                                     <p className="text-sm text-white/40 mb-1">Phone</p>
-                                    <p className="text-white font-medium">+91 98765 43210</p>
+                                    <p className="text-white font-medium">+91 93242 73931</p>
                                 </div>
                             </div>
 

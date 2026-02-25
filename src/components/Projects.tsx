@@ -1,4 +1,5 @@
 import { BlurText } from "@/components/ui/blur-text";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
 export default function Portfolio() {
 
@@ -24,17 +25,33 @@ export default function Portfolio() {
 
             <div className="relative container mx-auto max-w-6xl">
 
-                {/* SKILLS */}
-                <div className="mb-20 flex justify-center text-center">
+                {/* SKILLS SECTION */}
+                <div className="mb-20 flex flex-col items-center justify-center text-center">
+
+                    {/* 5 Line Extended Paragraph */}
+                    <TextGenerateEffect
+                        words={`✅ I am a dedicated BSc IT student with a strong passion for Web and Software Development, constantly exploring innovative technologies and modern development practices.
+✅ I possess hands-on experience in HTML, CSS, JavaScript, React, Bootstrap, Tailwind CSS, MySQL, Python, Flask, Git & GitHub, along with UI/UX design using Figma.
+✅ I specialize in building responsive, scalable, and performance-driven web applications that deliver seamless user experiences across devices.
+✅ I enjoy working on both frontend and backend development, transforming creative ideas into functional digital solutions through practical projects.
+✅ My goal is to gain real-world industry experience, contribute to impactful and meaningful products, and grow into a highly skilled Full-Stack Web Developer.`}
+                        className="max-w-5xl text-left text-white text-lg md:text-xl font-medium leading-relaxed mb-12 space-y-4 shadow-xl p-8 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm"
+                        filter={false}
+                        duration={1.5}
+                    />
+
+                    {/* Heading */}
                     <BlurText
                         text="Skills & Expertise"
                         delay={100}
                         animateBy="words"
                         direction="bottom"
-                        className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6"
+                        className="text-4xl md:text-6xl font-bold text-white tracking-tight"
                     />
+
                 </div>
 
+                {/* Skills Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {skills.map((skill, i) => (
                         <div
