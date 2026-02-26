@@ -35,7 +35,7 @@ export default function Portfolio() {
 ✅ I specialize in building responsive, scalable, and performance-driven web applications that deliver seamless user experiences across devices.
 ✅ I enjoy working on both frontend and backend development, transforming creative ideas into functional digital solutions through practical projects.
 ✅ My goal is to gain real-world industry experience, contribute to impactful and meaningful products, and grow into a highly skilled Full-Stack Web Developer.`}
-                        className="max-w-5xl text-left text-white text-lg md:text-xl font-medium leading-relaxed mb-12 space-y-4 shadow-xl p-8 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm"
+                        className="max-w-5xl text-left text-white text-base md:text-xl font-medium leading-relaxed mb-12 space-y-4 shadow-xl p-6 md:p-8 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm"
                         filter={false}
                         duration={1.5}
                     />

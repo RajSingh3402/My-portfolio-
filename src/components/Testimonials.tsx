@@ -30,7 +30,7 @@ const testimonials = [
 
 export default function Testimonials() {
     return (
-        <section id="about" className="relative bg-[#0f0f0f] py-24 px-6 overflow-hidden">
+        <section id="about" className="relative bg-[#0f0f0f] py-16 md:py-24 px-6 overflow-hidden">
             {/* Background Glow */}
             <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-cyan-500/10 blur-[120px] rounded-full -translate-y-1/2" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 blur-[120px] rounded-full" />

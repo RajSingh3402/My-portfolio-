@@ -1,11 +1,13 @@
+import dynamic from "next/dynamic";
 import ScrollyCanvas from "@/components/ScrollyCanvas";
 import Overlay from "@/components/Overlay";
-import Projects from "@/components/Projects";
-import CustomCursor from "@/components/CustomCursor";
-import Testimonials from "@/components/Testimonials";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+
+const Projects = dynamic(() => import("@/components/Projects"), { ssr: true });
+const Testimonials = dynamic(() => import("@/components/Testimonials"), { ssr: true });
+const Contact = dynamic(() => import("@/components/Contact"), { ssr: true });
+const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
+const CustomCursor = dynamic(() => import("@/components/CustomCursor"));
 
 export default function Home() {
   return (

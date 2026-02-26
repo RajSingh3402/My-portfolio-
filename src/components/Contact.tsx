@@ -37,7 +37,7 @@ export default function Contact() {
     };
 
     return (
-        <section className="relative bg-[#0f0f0f] py-32 px-6 overflow-hidden" id="contact">
+        <section className="relative bg-[#0f0f0f] py-20 md:py-32 px-6 overflow-hidden" id="contact">
             {/* Background Glows */}
             <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500/10 blur-[120px] rounded-full point-events-none" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
@@ -99,7 +99,7 @@ export default function Contact() {
 
                     {/* Right Side: The Form */}
                     <motion.div variants={fadeUpVariant}>
-                        <div className="p-8 md:p-10 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+                        <div className="p-6 md:p-10 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
