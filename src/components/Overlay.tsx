@@ -42,7 +42,7 @@ export default function Overlay() {
                     </p>
 
                     <p className="text-lg text-white/60">
-                        📧 SATYAMSINGH@GMAIL.COM
+                        📧 SATYAMSINGH82844@GMAIL.COM
                     </p>
 
                     <p className="text-lg text-white/60 mt-1">
