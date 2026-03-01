@@ -11,22 +11,40 @@ export default function ScrollyCanvas() {
 
   // Preload Images
   useEffect(() => {
-    const preloadImages = async () => {
-      const loadedImages: HTMLImageElement[] = [];
-      for (let i = 0; i < FRAME_COUNT; i++) {
-        const img = new Image();
-        const frameIndex = (i + 1).toString().padStart(3, "0");
-        img.src = `/sequence/ezgif-frame-${frameIndex}.jpg`;
-        await new Promise((resolve) => {
-          img.onload = resolve;
-          // In case frame doesn't exist, we still resolve to avoid breaking the sequence
-          img.onerror = resolve;
-        });
-        loadedImages.push(img);
-      }
-      setImages(loadedImages);
-    };
-    preloadImages();
+    const loadedImages: HTMLImageElement[] = [];
+    const loadPromises: Promise<void>[] = [];
+
+    for (let i = 0; i < FRAME_COUNT; i++) {
+      const img = new Image();
+      const frameIndex = (i + 1).toString().padStart(3, "0");
+      img.src = `/sequence/ezgif-frame-${frameIndex}.jpg`;
+      loadedImages.push(img);
+
+      loadPromises.push(
+        new Promise((resolve) => {
+          if (img.complete) {
+            resolve();
+          } else {
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+          }
+        })
+      );
+    }
+
+    // Show the first frame as soon as it's ready
+    if (loadedImages[0].complete) {
+      setImages([...loadedImages]);
+    } else {
+      const firstImg = loadedImages[0];
+      firstImg.addEventListener("load", () => setImages([...loadedImages]));
+      firstImg.addEventListener("error", () => setImages([...loadedImages]));
+    }
+
+    // Ensure a full re-render once all frames are completely loaded
+    Promise.all(loadPromises).then(() => {
+      setImages([...loadedImages]);
+    });
   }, []);
 
   const { scrollYProgress } = useScroll({
