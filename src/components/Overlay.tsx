@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { Eye, Download } from "lucide-react";
 
 export default function Overlay() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -48,20 +49,22 @@ export default function Overlay() {
                     <p className="text-lg text-white/60 mt-1">
                         📞 +91 93242 73931
                     </p>
-                    <div className="flex gap-4 mt-8 pointer-events-auto">
+                    <div className="flex flex-wrap justify-end gap-4 mt-8 pointer-events-auto w-full">
                         <a
-                            href="/resume.pdf"
+                            href="/Raj_Santosh_Singh..pdf"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white text-sm font-medium hover:bg-white/10 hover:border-white/30 transition-all backdrop-blur-md flex items-center gap-2"
+                            className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white text-sm font-medium hover:bg-white/10 hover:border-white/30 transition-all backdrop-blur-md flex items-center gap-2 group"
                         >
+                            <Eye className="w-4 h-4 text-white/70 group-hover:text-white transition-colors" />
                             View Resume
                         </a>
                         <a
-                            href="/resume.pdf"
+                            href="/Raj_Santosh_Singh..pdf"
                             download="Raj_Santosh_Singh_Resume.pdf"
-                            className="px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white text-sm font-semibold shadow-lg hover:shadow-cyan-500/25 transition-all flex items-center gap-2"
+                            className="px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white text-sm font-semibold shadow-lg hover:shadow-cyan-500/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
                         >
+                            <Download className="w-4 h-4" />
                             Download Resume
                         </a>
                     </div>
