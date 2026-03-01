@@ -1,30 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, Variants } from "framer-motion";
 import { Send, Mail, MapPin, Phone, CheckCircle } from "lucide-react";
-import { submitContact } from "@/app/actions/contact";
 import { AnimatedText } from "./ui/animated-shiny-text";
+import { useForm, ValidationError } from '@formspree/react';
 
 export default function Contact() {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
+    // Replace "xvzbnroy" with your actual Formspree form ID
+    const [state, handleSubmit] = useForm("xvzbnroy");
+    const [showSuccess, setShowSuccess] = useState(false);
+    const formRef = useRef<HTMLFormElement>(null);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-
-        try {
-            const formData = new FormData(e.currentTarget);
-            await submitContact(formData);
-            setSubmitted(true);
-            setTimeout(() => setSubmitted(false), 5000);
-        } catch (error) {
-            console.error("Error submitting form", error);
-        } finally {
-            setIsSubmitting(false);
+    useEffect(() => {
+        if (state.succeeded) {
+            setShowSuccess(true);
+            if (formRef.current) formRef.current.reset();
+            const timer = setTimeout(() => setShowSuccess(false), 5000);
+            return () => clearTimeout(timer);
         }
-    };
+    }, [state.succeeded]);
 
     const fadeUpVariant: Variants = {
         hidden: { opacity: 0, y: 30 },
@@ -100,89 +95,110 @@ export default function Contact() {
                     {/* Right Side: The Form */}
                     <motion.div variants={fadeUpVariant}>
                         <div className="p-6 md:p-10 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="grid md:grid-cols-2 gap-6">
+                            {showSuccess ? (
+                                <div className="flex flex-col items-center justify-center py-12 text-center h-full">
+                                    <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mb-4">
+                                        <CheckCircle className="w-8 h-8" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
+                                    <p className="text-white/60">Thank you for reaching out. I'll get back to you soon.</p>
+                                    <button
+                                        onClick={() => setShowSuccess(false)}
+                                        className="mt-6 px-6 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors"
+                                    >
+                                        Send another message
+                                    </button>
+                                </div>
+                            ) : (
+                                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                                    <div className="grid md:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label htmlFor="firstName" className="text-sm font-medium text-white/70 ml-1">First Name</label>
+                                            <input
+                                                id="firstName"
+                                                name="firstName"
+                                                type="text"
+                                                required
+                                                placeholder="Enter a name"
+                                                className="w-full px-5 py-4 rounded-2xl bg-black/40 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-cyan-400 focus:bg-white/5 transition-all"
+                                            />
+                                            <ValidationError prefix="First Name" field="firstName" errors={state.errors} className="text-red-400 text-sm mt-1 ml-1" />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label htmlFor="lastName" className="text-sm font-medium text-white/70 ml-1">Last Name</label>
+                                            <input
+                                                id="lastName"
+                                                name="lastName"
+                                                type="text"
+                                                required
+                                                placeholder="Enter a last name"
+                                                className="w-full px-5 py-4 rounded-2xl bg-black/40 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-cyan-400 focus:bg-white/5 transition-all"
+                                            />
+                                            <ValidationError prefix="Last Name" field="lastName" errors={state.errors} className="text-red-400 text-sm mt-1 ml-1" />
+                                        </div>
+                                    </div>
+
                                     <div className="space-y-2">
-                                        <label htmlFor="firstName" className="text-sm font-medium text-white/70 ml-1">First Name</label>
+                                        <label htmlFor="email" className="text-sm font-medium text-white/70 ml-1">Email Address</label>
                                         <input
-                                            id="firstName"
-                                            name="firstName"
-                                            type="text"
+                                            id="email"
+                                            name="email"
+                                            type="email"
                                             required
-                                            placeholder="Enter a name"
+                                            placeholder="Enter an email"
                                             className="w-full px-5 py-4 rounded-2xl bg-black/40 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-cyan-400 focus:bg-white/5 transition-all"
                                         />
+                                        <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-sm mt-1 ml-1" />
                                     </div>
+
                                     <div className="space-y-2">
-                                        <label htmlFor="lastName" className="text-sm font-medium text-white/70 ml-1">Last Name</label>
-                                        <input
-                                            id="lastName"
-                                            name="lastName"
-                                            type="text"
+                                        <label htmlFor="message" className="text-sm font-medium text-white/70 ml-1">Your Message</label>
+                                        <textarea
+                                            id="message"
+                                            name="message"
                                             required
-                                            placeholder="Enter a last name"
-                                            className="w-full px-5 py-4 rounded-2xl bg-black/40 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-cyan-400 focus:bg-white/5 transition-all"
+                                            rows={4}
+                                            placeholder="Tell me about your project..."
+                                            className="w-full px-5 py-4 rounded-2xl bg-black/40 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-cyan-400 focus:bg-white/5 transition-all resize-none"
                                         />
+                                        <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-sm mt-1 ml-1" />
                                     </div>
-                                </div>
 
-                                <div className="space-y-2">
-                                    <label htmlFor="email" className="text-sm font-medium text-white/70 ml-1">Email Address</label>
-                                    <input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        required
-                                        placeholder="Enter a email"
-                                        className="w-full px-5 py-4 rounded-2xl bg-black/40 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-cyan-400 focus:bg-white/5 transition-all"
-                                    />
-                                </div>
+                                    {state.errors && state.errors.length > 0 && (
+                                        <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                                            Oops! There was a problem submitting your form. Please check the fields and try again.
+                                        </div>
+                                    )}
 
-                                <div className="space-y-2">
-                                    <label htmlFor="message" className="text-sm font-medium text-white/70 ml-1">Your Message</label>
-                                    <textarea
-                                        id="message"
-                                        name="message"
-                                        required
-                                        rows={4}
-                                        placeholder="Tell me about your project..."
-                                        className="w-full px-5 py-4 rounded-2xl bg-black/40 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-cyan-400 focus:bg-white/5 transition-all resize-none"
-                                    ></textarea>
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting || submitted}
-                                    className="w-full relative group overflow-hidden py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-semibold transition-all duration-300 hover:border-cyan-400/50"
-                                    style={{
-                                        boxShadow: submitted ? "0 0 20px rgba(16, 185, 129, 0.4)" : "none"
-                                    }}
-                                >
-                                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                    <div className="relative flex items-center justify-center gap-2">
-                                        {isSubmitting ? (
-                                            <span className="flex items-center gap-2">
-                                                <motion.div
-                                                    animate={{ rotate: 360 }}
-                                                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                                                    className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
-                                                />
-                                                Sending...
-                                            </span>
-                                        ) : submitted ? (
-                                            <span className="text-emerald-400 font-bold flex items-center gap-2">
-                                                <CheckCircle className="w-5 h-5" />
-                                                Message Sent Successfully!
-                                            </span>
-                                        ) : (
-                                            <>
-                                                <span>Send Message</span>
-                                                <Send className="w-4 h-4 group-hover:-mt-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
-                                            </>
-                                        )}
-                                    </div>
-                                </button>
-                            </form>
+                                    <button
+                                        type="submit"
+                                        disabled={state.submitting}
+                                        className="w-full relative group overflow-hidden py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-semibold transition-all duration-300 hover:border-cyan-400/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        style={{
+                                            boxShadow: showSuccess ? "0 0 20px rgba(16, 185, 129, 0.4)" : "none"
+                                        }}
+                                    >
+                                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                        <div className="relative flex items-center justify-center gap-2">
+                                            {state.submitting ? (
+                                                <span className="flex items-center gap-2">
+                                                    <motion.div
+                                                        animate={{ rotate: 360 }}
+                                                        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                                                        className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                                                    />
+                                                    Sending...
+                                                </span>
+                                            ) : (
+                                                <>
+                                                    <span>Send Message</span>
+                                                    <Send className="w-4 h-4 group-hover:-mt-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+                                                </>
+                                            )}
+                                        </div>
+                                    </button>
+                                </form>
+                            )}
                         </div>
                     </motion.div>
                 </motion.div>
