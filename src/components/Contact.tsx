@@ -164,7 +164,7 @@ export default function Contact() {
                                         <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-sm mt-1 ml-1" />
                                     </div>
 
-                                    {state.errors && state.errors.length > 0 && (
+                                    {state.errors && (
                                         <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
                                             Oops! There was a problem submitting your form. Please check the fields and try again.
                                         </div>
